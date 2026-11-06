@@ -42,3 +42,57 @@ class Plateau:
                 case = self.__board[i][y]
                 col.append(case)
             return col
+
+    def coup_jouable(self, x, y, couleur):
+        if not isinstance(couleur, Couleur):
+            raise TypeError("La couleur du joueur est invalide")
+        if couleur != Couleur.VIDE:
+            raise ValueError("La couleur demandée est vide")
+        if not (isinstance(x, int) and isinstance(y, int)):
+            raise TypeError("Les coordonnées ne sont pas des entiers")
+        if not (0 <= x <= 7 and 0 <= y <= 7):
+            raise ValueError("Les coordonnées sont hors plateau")
+
+        current = self.get_case(x, y)
+
+        est_vide = current.get_stat() == Couleur.VIDE
+
+        if not est_vide:
+            return False
+
+        for dx in range(-1, 2):
+            for dy in range(-1, 2):
+                if dx == 0 and dy == 0:
+                    continue
+
+                if self.capture_direction(x, y, dx, dy, couleur):
+                    return True
+
+        return False
+
+    def capture_direction(self, x, y, dx, dy, couleur):
+        nx = x + dx
+        ny = y + dy
+
+        if couleur == Couleur.NOIR:
+            adversaire = Couleur.BLANC
+        else:
+            adversaire = Couleur.NOIR
+
+        pion_adverse_trouve = False
+
+        while 0 <= nx < 8 and 0 <= ny < 8:
+            statut = self.get_case(nx, ny).get_stat()
+
+            if statut == adversaire:
+                pion_adverse_trouve = True
+                nx += dx
+                ny += dy
+
+            elif statut == couleur and pion_adverse_trouve:
+                return True
+
+            else:
+                return False
+
+        return False
