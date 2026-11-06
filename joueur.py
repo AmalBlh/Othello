@@ -35,13 +35,13 @@ class Joueur:
         column = position[0]
         row = position[1]
 
-    if column not in "ABCDEFGH":
-        return None
+        if column not in "ABCDEFGH":
+            return None
 
-    if row not in "12345678":
-        return None
+        if row not in "12345678":
+            return None
 
-    x = int(row) - 1
-    y = ord(column) - ord("A")
+        x = int(row) - 1
+        y = ord(column) - ord("A")
 
-    return x, y
+        return x, y
