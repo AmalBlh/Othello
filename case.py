@@ -43,14 +43,7 @@ class Case:
         
         elif self.get_stat() == Couleur.BLANC:
             self.set_stat(Couleur.NOIR)
-            
+
         elif self.get_stat() == Couleur.NOIR:
             self.set_stat(Couleur.BLANC)
-         
-         
-
-case = Case(1, 2, Couleur.VIDE)
-print(case.get_stat())
-print(case.get_x())
-print(case.get_y())
 
