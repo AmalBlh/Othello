@@ -28,14 +28,24 @@ class TestCase(unittest.TestCase):
     def test_set_pawn_blanc(self):
         case = Case(0, 0, Couleur.VIDE)
         case.set_pawn(Couleur.BLANC)
-
         self.assertEqual(case.get_stat(), Couleur.BLANC)
     
     def test_set_pawn_noir(self):
         case = Case(0, 0, Couleur.VIDE)
         case.set_pawn(Couleur.NOIR)
-
         self.assertEqual(case.get_stat(), Couleur.NOIR)
+
+    def test_set_pawn_vide(self):
+        case = Case(0, 0, Couleur.VIDE)
+        with self.assertRaises(ValueError):
+            case.set_pawn(Couleur.VIDE)
+        self.assertEqual(case.get_stat(), Couleur.VIDE)
+
+    def test_set_pawn_mauvais_type(self):
+        case = Case(0, 0, Couleur.VIDE)
+        with self.assertRaises(TypeError):
+            case.set_pawn("ROUGE")
+        self.assertEqual(case.get_stat(), Couleur.VIDE)
 
 if __name__ == "__main__":
     unittest.main()
