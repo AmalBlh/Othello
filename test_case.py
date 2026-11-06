@@ -3,7 +3,6 @@ import unittest
 from case import Case, Couleur
 
 class TestCase(unittest.TestCase):
-
     def test_flip_blanc(self):
         case = Case(0, 1, Couleur.BLANC)
         case.flip()
