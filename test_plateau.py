@@ -1,6 +1,7 @@
 from plateau import Plateau
-from case import Case, Couleur
+from case import Couleur
 import unittest
+
 
 class TestPlateau(unittest.TestCase):
 
@@ -13,32 +14,50 @@ class TestPlateau(unittest.TestCase):
         plateau = Plateau()
         for j in range(8):
             self.assertEqual(len(plateau.get_colonne(j)), 8)
-    
+
     def test_init_cases_vides(self):
         plateau = Plateau()
+
         for i in range(8):
             for j in range(8):
-                ma_case = plateau.get_case(i, j)
-                self.assertEqual(ma_case.get_stat(), Couleur.VIDE)
+                if (i, j) not in [(3, 3), (3, 4), (4, 3), (4, 4)]:
+                    ma_case = plateau.get_case(i, j)
+                    self.assertEqual(ma_case.get_stat(), Couleur.VIDE)
+
+    def test_init_pions_centraux(self):
+        plateau = Plateau()
+
+        self.assertEqual(plateau.get_case(3, 3).get_stat(), Couleur.BLANC)
+        self.assertEqual(plateau.get_case(3, 4).get_stat(), Couleur.NOIR)
+        self.assertEqual(plateau.get_case(4, 3).get_stat(), Couleur.NOIR)
+        self.assertEqual(plateau.get_case(4, 4).get_stat(), Couleur.BLANC)
 
     def test_init_get_case_error(self):
         plateau = Plateau()
-        with self.assertRaises(ValueError):
-            plateau.get_case(-1,1)
 
         with self.assertRaises(ValueError):
-            plateau.get_case(13,0)
+            plateau.get_case(-1, 1)
+
+        with self.assertRaises(ValueError):
+            plateau.get_case(13, 0)
 
         with self.assertRaises(TypeError):
-            plateau.get_case("1",0)
+            plateau.get_case("1", 0)
 
     def test_init_get_case(self):
         plateau = Plateau()
+
         for i in range(8):
             for j in range(8):
-                ma_case = plateau.get_case(i,j)
-                ma_case.set_pawn(Couleur.NOIR)
-                self.assertEqual(plateau.get_case(i,j).get_stat(), Couleur.NOIR)
+                ma_case = plateau.get_case(i, j)
+
+                if ma_case.get_stat() == Couleur.VIDE:
+                    ma_case.set_pawn(Couleur.NOIR)
+
+                    self.assertEqual(
+                        plateau.get_case(i, j).get_stat(),
+                        Couleur.NOIR
+                    )
 
     def test_get_ligne_error(self):
         plateau = Plateau()
@@ -54,7 +73,6 @@ class TestPlateau(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             plateau.get_ligne(1.5)
-
 
     def test_get_ligne(self):
         plateau = Plateau()
@@ -81,7 +99,6 @@ class TestPlateau(unittest.TestCase):
         with self.assertRaises(TypeError):
             plateau.get_colonne(1.5)
 
-
     def test_get_colonne(self):
         plateau = Plateau()
         colonne = plateau.get_colonne(3)
@@ -92,8 +109,6 @@ class TestPlateau(unittest.TestCase):
         self.assertEqual(colonne[7].get_x(), 7)
         self.assertEqual(colonne[7].get_y(), 3)
 
+
 if __name__ == "__main__":
     unittest.main()
-
-
-#Commande de test : python -m unittest -v test_plateau.py
