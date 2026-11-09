@@ -14,3 +14,6 @@ venv/
 mainsami.py
 __pycache__/plateau.cpython-314.pyc
 __pycache__/test_plateau.cpython-314.pyc
+__pycache__/case.cpython-314.pyc
+__pycache__/joueur.cpython-314.pyc
+__pycache__/plateau.cpython-314.pyc

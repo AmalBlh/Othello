@@ -31,7 +31,7 @@ class Jeu:
 
         while not self.jeu_terminer():
             self.plateau.affichage()
-            
+
             if not self.plateau.peu_jouer(self.joueur_courant.couleur):
                 print(f"{self.joueur_courant.nom} ne peut pas jouer. Il passe son tour.")
                 self.switch_joueur()
@@ -41,7 +41,12 @@ class Jeu:
             coup_valide = False
 
             while not coup_valide:
-                x, y = self.joueur_courant.choisir_case()
+                try:
+                    x, y = self.joueur_courant.choisir_case()
+                    
+                except ValueError as erreur:
+                    print(f"[ERREUR] {erreur}")
+                    continue
 
                 if self.plateau.coup_jouable(
                     x, y, self.joueur_courant.couleur
