@@ -10,8 +10,13 @@ class Plateau:
                 line.append(Case(i,j, Couleur.VIDE))
 
             board.append(line)
-
         self.__board = board
+
+        self.get_case(3,3).set_pawn(Couleur.BLANC)
+        self.get_case(3,4).set_pawn(Couleur.NOIR)
+        self.get_case(4,3).set_pawn(Couleur.NOIR)
+        self.get_case(4,4).set_pawn(Couleur.BLANC)
+
 
     def get_case(self, x, y):
         if not (isinstance(x, int) and isinstance(y, int)):
