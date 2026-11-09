@@ -136,3 +136,20 @@ class Plateau:
                 jeton.flip()
         else:
             raise ValueError("Le coup n'est pas jouable.")
+
+    def peu_jouer(self, couleur):
+        for i in range(8):
+            for j in range(8):
+                if self.coup_jouable(i, j, couleur):
+                    return True
+
+        return False
+
+
+    def plateau_plein(self):
+        for ligne in self.__board:
+            for case in ligne:
+                if case.get_stat() == Couleur.VIDE:
+                    return False
+
+        return True
