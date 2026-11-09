@@ -161,6 +161,19 @@ class Plateau:
             symboles = []
 
             for case in ligne:
-                symboles.append(case.get_stat().value)
+                symboles.append(str(case.get_stat().value))
 
             print(" ".join(symboles))
+
+    def calculer_score(self):
+        score_noir = 0
+        score_blanc = 0
+
+        for ligne in self.__board:
+            for case in ligne:
+                if case.get_stat() == Couleur.NOIR:
+                    score_noir += 1
+                elif case.get_stat() == Couleur.BLANC:
+                    score_blanc += 1
+
+        return score_noir, score_blanc

@@ -68,6 +68,28 @@ class Jeu:
 
         self.afficher_resultat()
 
+    def jouer_coup_interface(self, x, y):
+
+        couleur = self.joueur_courant.couleur
+
+        if not self.plateau.coup_jouable(x, y, couleur):
+            return False, "Coup non jouable !"
+
+        self.plateau.jouer_coup(x, y, couleur)
+
+        if self.jeu_terminer():
+            return True, "Partie terminée !"
+
+        self.switch_joueur()
+
+        if not self.plateau.peu_jouer(self.joueur_courant.couleur):
+            joueur_passe = self.joueur_courant.nom
+            self.switch_joueur()
+
+            return True, f"{joueur_passe} ne peut pas jouer. Il passe son tour."
+
+        return True, ""
+
     def afficher_resultat(self):
 
         print(f"Score de {self.joueur1.nom} : {self.joueur1.score}")
