@@ -30,7 +30,8 @@ class Jeu:
     def jouer(self):
 
         while not self.jeu_terminer():
-
+            self.plateau.affichage()
+            
             if not self.plateau.peu_jouer(self.joueur_courant.couleur):
                 print(f"{self.joueur_courant.nom} ne peut pas jouer. Il passe son tour.")
                 self.switch_joueur()

@@ -1,9 +1,9 @@
 from enum import Enum
 
 class Couleur(Enum):
-      VIDE = 0
-      BLANC = 1
-      NOIR = 2
+      VIDE = "."
+      BLANC = "B"
+      NOIR = "N"
 
       
 

@@ -17,7 +17,9 @@ class Plateau:
         self.get_case(4,3).set_pawn(Couleur.NOIR)
         self.get_case(4,4).set_pawn(Couleur.BLANC)
 
-
+    def get_board(self):
+        return self.__board
+    
     def get_case(self, x, y):
         if not (isinstance(x, int) and isinstance(y, int)):
             raise TypeError("Les coordonnées doivent être des entiers")
@@ -153,3 +155,12 @@ class Plateau:
                     return False
 
         return True
+
+    def affichage(self):
+        for ligne in self.__board:
+            symboles = []
+
+            for case in ligne:
+                symboles.append(case.get_stat().value)
+
+            print(" ".join(symboles))
