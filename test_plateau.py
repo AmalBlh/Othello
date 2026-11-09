@@ -1,5 +1,5 @@
 from plateau import Plateau
-from case import Couleur
+from case import Case, Couleur
 import unittest
 
 

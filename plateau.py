@@ -127,6 +127,7 @@ class Plateau:
                                 statut = self.get_case(nx, ny).get_stat()
         return cases_flippables
 
-    def jouer_coup(self, x, y, couleur):
-        if self.coup_jouable(x,y,couleur):
-            flip = cases_flip(x, y, couleur)
+    # def jouer_coup(self, x, y, couleur):
+    #     if self.coup_jouable(x,y,couleur):
+    #         flip = cases_flip(x, y, couleur)
+    #     pass
