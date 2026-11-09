@@ -7,8 +7,8 @@ class Jeu:
 
     def __init__(self):
         self.plateau = Plateau()
-        self.joueur1 = Joueur("Test", Couleur.NOIR, 0)
-        self.joueur2 = Joueur("Amal", Couleur.BLANC, 0)
+        self.joueur1 = Joueur("Noir", Couleur.NOIR, 0)
+        self.joueur2 = Joueur("Blanc", Couleur.BLANC, 0)
         self.joueur_courant = self.joueur1
 
     def switch_joueur(self):
@@ -36,6 +36,7 @@ class Jeu:
                 self.switch_joueur()
                 continue
 
+            print(f"C'est le tour de {self.joueur_courant.nom}.")
             coup_valide = False
 
             while not coup_valide:

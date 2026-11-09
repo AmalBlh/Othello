@@ -9,6 +9,7 @@ class Joueur:
         """
         Permet au joueur de choisir une case.
         """
+        
         case = input("Choisissez une case (exemple 43) : ")
 
         coordinates = self.convert_coordinates(case)
@@ -19,8 +20,7 @@ class Joueur:
             print("Colonne :", y)
             return x, y
         else:
-            print("Coordonnées incorrectes")
-            return None
+            raise ValueError("Coordonnées incorrectes")
 
     def convert_coordinates(self, position):
         """
