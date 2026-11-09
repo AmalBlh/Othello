@@ -290,5 +290,42 @@ class TestPlateau(unittest.TestCase):
         self.assertEqual(plateau.get_case(4, 3).get_stat(), Couleur.NOIR)
         self.assertEqual(plateau.get_case(4, 4).get_stat(), Couleur.BLANC)
 
+    def test_peu_jouer_noir_initial(self):
+        plateau = Plateau()
+        self.assertTrue(plateau.peu_jouer(Couleur.NOIR))
+
+
+    def test_peu_jouer_blanc_initial(self):
+        plateau = Plateau()
+        self.assertTrue(plateau.peu_jouer(Couleur.BLANC))
+
+
+    def test_peu_jouer_plateau_rempli(self):
+        plateau = Plateau()
+
+        for i in range(8):
+            for j in range(8):
+                case = plateau.get_case(i, j)
+                if case.get_stat() == Couleur.VIDE:
+                    case.set_pawn(Couleur.NOIR)
+
+        self.assertFalse(plateau.peu_jouer(Couleur.NOIR))
+
+    def test_plateau_plein_initial(self):
+        plateau = Plateau()
+        self.assertFalse(plateau.plateau_plein())
+
+
+    def test_plateau_plein_rempli(self):
+        plateau = Plateau()
+
+        for i in range(8):
+            for j in range(8):
+                case = plateau.get_case(i, j)
+                if case.get_stat() == Couleur.VIDE:
+                    case.set_pawn(Couleur.NOIR)
+
+        self.assertTrue(plateau.plateau_plein())
+
 if __name__ == "__main__":
     unittest.main()
