@@ -232,5 +232,63 @@ class TestPlateau(unittest.TestCase):
         with self.assertRaises(ValueError):
             case.flip()
 
+    def test_jouer_coup_placement_pion(self):
+        plateau = Plateau()
+
+        plateau.jouer_coup(2, 3, Couleur.NOIR)
+
+        self.assertEqual(
+            plateau.get_case(2, 3).get_stat(),
+            Couleur.NOIR
+        )
+
+    def test_jouer_coup_flip_pion(self):
+        plateau = Plateau()
+
+        plateau.jouer_coup(2, 3, Couleur.NOIR)
+
+        self.assertEqual(
+            plateau.get_case(3, 3).get_stat(),
+            Couleur.NOIR
+        )
+
+    def test_jouer_coup_flip_plusieurs_directions(self):
+        plateau = Plateau()
+
+        plateau.get_case(2, 3).set_pawn(Couleur.BLANC)
+        plateau.get_case(3, 2).set_pawn(Couleur.BLANC)
+
+        plateau.get_case(2, 4).set_pawn(Couleur.NOIR)
+        plateau.get_case(4, 2).set_pawn(Couleur.NOIR)
+
+        plateau.jouer_coup(2, 2, Couleur.NOIR)
+
+        self.assertEqual(plateau.get_case(2, 2).get_stat(), Couleur.NOIR)
+        self.assertEqual(plateau.get_case(2, 3).get_stat(), Couleur.NOIR)
+        self.assertEqual(plateau.get_case(3, 2).get_stat(), Couleur.NOIR)
+
+
+    def test_jouer_coup_invalide(self):
+        plateau = Plateau()
+
+        with self.assertRaises(ValueError):
+            plateau.jouer_coup(0, 0, Couleur.NOIR)
+
+        self.assertEqual(
+            plateau.get_case(0, 0).get_stat(),
+            Couleur.VIDE
+        )
+
+    def test_jouer_coup_invalide_sans_modification(self):
+        plateau = Plateau()
+
+        with self.assertRaises(ValueError):
+            plateau.jouer_coup(0, 0, Couleur.NOIR)
+
+        self.assertEqual(plateau.get_case(3, 3).get_stat(), Couleur.BLANC)
+        self.assertEqual(plateau.get_case(3, 4).get_stat(), Couleur.NOIR)
+        self.assertEqual(plateau.get_case(4, 3).get_stat(), Couleur.NOIR)
+        self.assertEqual(plateau.get_case(4, 4).get_stat(), Couleur.BLANC)
+
 if __name__ == "__main__":
     unittest.main()
