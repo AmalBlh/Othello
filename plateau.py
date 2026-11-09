@@ -46,8 +46,8 @@ class Plateau:
     def coup_jouable(self, x, y, couleur):
         if not isinstance(couleur, Couleur):
             raise TypeError("La couleur du joueur est invalide")
-        if couleur != Couleur.VIDE:
-            raise ValueError("La couleur demandée est vide")
+        if couleur == Couleur.VIDE:
+            raise ValueError("La couleur demandée ne peut pas être VIDE")
         if not (isinstance(x, int) and isinstance(y, int)):
             raise TypeError("Les coordonnées ne sont pas des entiers")
         if not (0 <= x <= 7 and 0 <= y <= 7):
@@ -96,3 +96,28 @@ class Plateau:
                 return False
 
         return False
+
+    def cases_flip(self, x, y, couleur):
+        cases_flippables = []
+
+        if couleur == Couleur.NOIR:
+            adversaire = Couleur.BLANC
+        else:
+            adversaire = Couleur.NOIR
+        
+        for dx in range(-1, 2):
+            for dy in range(-1, 2):
+                if dx == 0 and dy == 0:
+                    continue
+                if self.capture_direction(x, y, dx, dy, couleur):
+                    nx = x + dx
+                    ny = y + dy
+                    if 0 <= nx < 8 and 0 <= ny < 8:
+                        statut = self.get_case(nx, ny).get_stat()
+                        while 0 <= nx < 8 and 0 <= ny < 8 and statut == adversaire:
+                            cases_flippables.append(self.get_case(nx, ny))
+                            nx += dx
+                            ny += dy
+                            if 0 <= nx < 8 and 0 <= ny < 8:
+                                statut = self.get_case(nx, ny).get_stat()
+        return cases_flippables
