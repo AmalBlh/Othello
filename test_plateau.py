@@ -210,5 +210,27 @@ class TestPlateau(unittest.TestCase):
 
         self.assertEqual(len(cases), 2)
 
+    def test_flip_noir_vers_blanc(self):
+        case = Case(0, 0, Couleur.NOIR)
+
+        case.flip()
+
+        self.assertEqual(case.get_stat(), Couleur.BLANC)
+
+
+    def test_flip_blanc_vers_noir(self):
+        case = Case(0, 0, Couleur.BLANC)
+
+        case.flip()
+
+        self.assertEqual(case.get_stat(), Couleur.NOIR)
+
+
+    def test_flip_case_vide(self):
+        case = Case(0, 0, Couleur.VIDE)
+
+        with self.assertRaises(ValueError):
+            case.flip()
+
 if __name__ == "__main__":
     unittest.main()
