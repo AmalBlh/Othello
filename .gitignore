@@ -1,1 +1,14 @@
+# Fichiers Python générés
+__pycache__/
+*.py[cod]
+
+# Environnements virtuels
+venv/
+.venv/
+
+# Configuration des éditeurs
+.idea/
+.vscode/
+
+# Fichier de lancement personnel
 mainsami.py
