@@ -172,6 +172,43 @@ class TestPlateau(unittest.TestCase):
             plateau.capture_direction(2, 3, -1, 0, Couleur.NOIR)
         )
 
+    def test_cases_flip_initial(self):
+        plateau = Plateau()
+
+        cases = plateau.cases_flip(2, 3, Couleur.NOIR)
+
+        self.assertEqual(len(cases), 1)
+        self.assertEqual(cases[0].get_x(), 3)
+        self.assertEqual(cases[0].get_y(), 3)
+
+
+    def test_cases_flip_aucune_capture(self):
+        plateau = Plateau()
+
+        cases = plateau.cases_flip(0, 0, Couleur.NOIR)
+
+        self.assertEqual(len(cases), 0)
+
+
+    def test_cases_flip_plusieurs_directions(self):
+        plateau = Plateau()
+
+        # Pions adverses
+        plateau.get_case(2, 3).set_pawn(Couleur.BLANC)
+        plateau.get_case(3, 2).set_pawn(Couleur.BLANC)
+
+        # Pions alliés qui ferment les captures
+        plateau.get_case(2, 4).set_pawn(Couleur.NOIR)
+        plateau.get_case(4, 2).set_pawn(Couleur.NOIR)
+
+        cases = plateau.cases_flip(2, 2, Couleur.NOIR)
+
+        positions = [(case.get_x(), case.get_y()) for case in cases]
+
+        self.assertIn((2, 3), positions)
+        self.assertIn((3, 2), positions)
+
+        self.assertEqual(len(cases), 2)
 
 if __name__ == "__main__":
     unittest.main()
