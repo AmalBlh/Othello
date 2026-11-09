@@ -9,7 +9,7 @@ class Joueur:
         """
         Permet au joueur de choisir une case.
         """
-        case = input("Choisissez une case (exemple D3) : ")
+        case = input("Choisissez une case (exemple 43) : ")
 
         coordinates = self.convert_coordinates(case)
 
@@ -24,10 +24,10 @@ class Joueur:
 
     def convert_coordinates(self, position):
         """
-        Convertit une position comme D3 en coordonnées Python.
+        Convertit une position comme 43 en coordonnées Python.
         """
 
-        position = position.strip().upper()
+        # position = position.strip().upper()
 
         if len(position) != 2:
             return None
@@ -35,13 +35,14 @@ class Joueur:
         column = position[0]
         row = position[1]
 
-        if column not in "ABCDEFGH":
+        if column not in "12345678":
             return None
 
         if row not in "12345678":
             return None
 
         x = int(row) - 1
-        y = ord(column) - ord("A")
+        y = int(column) - 1
+        # y = ord(column) - ord("A")
 
         return x, y
