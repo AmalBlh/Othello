@@ -109,6 +109,69 @@ class TestPlateau(unittest.TestCase):
         self.assertEqual(colonne[7].get_x(), 7)
         self.assertEqual(colonne[7].get_y(), 3)
 
+    def test_coup_jouable_initial_noir(self):
+        plateau = Plateau()
+
+        coups_valides = [(2, 3), (3, 2), (4, 5), (5, 4)]
+
+        for x, y in coups_valides:
+            self.assertTrue(plateau.coup_jouable(x, y, Couleur.NOIR))
+
+
+    def test_coup_jouable_initial_blanc(self):
+        plateau = Plateau()
+
+        coups_valides = [(2, 4), (3, 5), (4, 2), (5, 3)]
+
+        for x, y in coups_valides:
+            self.assertTrue(plateau.coup_jouable(x, y, Couleur.BLANC))
+
+
+    def test_coup_non_jouable(self):
+        plateau = Plateau()
+
+        self.assertFalse(plateau.coup_jouable(0, 0, Couleur.NOIR))
+        self.assertFalse(plateau.coup_jouable(3, 3, Couleur.NOIR))
+
+
+    def test_coup_jouable_erreurs(self):
+        plateau = Plateau()
+
+        with self.assertRaises(TypeError):
+            plateau.coup_jouable(2, 3, "NOIR")
+
+        with self.assertRaises(ValueError):
+            plateau.coup_jouable(2, 3, Couleur.VIDE)
+
+        with self.assertRaises(ValueError):
+            plateau.coup_jouable(8, 3, Couleur.NOIR)
+
+        with self.assertRaises(TypeError):
+            plateau.coup_jouable("2", 3, Couleur.NOIR)
+
+    def test_capture_direction_initial(self):
+        plateau = Plateau()
+
+        self.assertTrue(
+            plateau.capture_direction(2, 3, 1, 0, Couleur.NOIR)
+        )
+
+        self.assertTrue(
+            plateau.capture_direction(2, 4, 1, 0, Couleur.BLANC)
+        )
+
+
+    def test_capture_direction_sans_capture(self):
+        plateau = Plateau()
+
+        self.assertFalse(
+            plateau.capture_direction(0, 0, 1, 0, Couleur.NOIR)
+        )
+
+        self.assertFalse(
+            plateau.capture_direction(2, 3, -1, 0, Couleur.NOIR)
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
