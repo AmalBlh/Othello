@@ -12,3 +12,5 @@ venv/
 
 # Fichier de lancement personnel
 mainsami.py
+__pycache__/plateau.cpython-314.pyc
+__pycache__/test_plateau.cpython-314.pyc
